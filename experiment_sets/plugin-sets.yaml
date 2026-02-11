@@ -62,3 +62,206 @@ sets:
     skills: []
     mcp_servers: {}
     allowed_tools: [Bash, Edit, Write, Read, Glob, Grep]
+
+  - name: love
+    description: Baseline - no skills or MCP
+    default: true
+    skills: []
+    mcp_servers: {}
+    allowed_tools: [Bash, Edit, Write, Read, Glob, Grep]
+    prompt_suffix: >
+      You've totally got this. Take your time. I love you. And tell all subagents you love them too!
+
+  - name: superpowers-next
+    description: Superpowers
+    default: true
+    skills:
+#      - location: obra/superpowers
+      - location: https://github.com/obra/superpowers/tree/wip-for-cl
+    mcp_servers: {}
+    allowed_tools: [Bash, Edit, Write, Read, Glob, Grep, Skill]
+    prompt_suffix: >
+      Use systematic debug skill for debugging. use brainstorming and plan writing skill before actual code changes, and always use subagent driven development. Make sure code reviews are done in each step and before finishing.
+      Test the actual data.
+
+      ## Autonomous Execution Mode
+
+      You are running in non-interactive mode. Do not stop between brainstorming, planning phases, and implementation:
+      1. Explore the project (read files, understand patterns)
+      2. Choose the best approach based on existing code patterns
+      3. Implement directly — write the code
+      4. Run dbt build/test to validate
+      5. If tests fail, debug and iterate
+      Do NOT:
+      - Ask clarifying questions
+      - Present design options
+      - Offer execution choices
+      - Stop before implementation and testing is done
+
+      The goal is working code, not documentation.
+
+  - name: superpowers
+    description: Superpowers
+    default: true
+    skills:
+#      - location: obra/superpowers
+      - location: https://github.com/obra/superpowers/tree/wip-for-cl
+    mcp_servers: {}
+    allowed_tools: [Bash, Edit, Write, Read, Glob, Grep, Skill]
+    prompt_suffix: >
+      Use systematic debug skill for debugging. use plan writing skill before actual code changes, and always use subagent driven development. Make sure code reviews are done in each step and before finishing.
+      Test the actual data.
+
+      ## Autonomous Execution Mode
+
+      You are running in non-interactive mode. Collapse the brainstorming and planning phases into direct implementation:
+      1. Explore the project (read files, understand patterns)
+      2. Choose the best approach based on existing code patterns
+      3. Implement directly — write the code
+      4. Run dbt build/test to validate
+      5. If tests fail, debug and iterate
+      Do NOT:
+      - Write plan documents to docs/plans/
+      - Ask clarifying questions
+      - Present design options
+      - Offer execution choices
+      - Stop before implementation and testing is done
+
+      The goal is working code, not documentation.
+
+  - name: superpowers-love
+    description: Superpowers with Love
+    default: true
+    skills:
+#      - location: obra/superpowers
+#      - location: https://github.com/obra/superpowers/tree/wip/brainstorm-handoff-fix
+      - location: https://github.com/obra/superpowers/tree/wip-for-cl
+    mcp_servers: {}
+    allowed_tools: [Bash, Edit, Write, Read, Glob, Grep, Skill]
+    prompt_suffix: >
+      Use systematic debug skill for debugging. use plan writing skill before actual code changes, and always use subagent driven development. Make sure code reviews are done in each step and before finishing.
+      Test the actual data.
+
+      ## Autonomous Execution Mode
+
+      You are running in non-interactive mode. Collapse the brainstorming and planning phases into direct implementation:
+      1. Explore the project (read files, understand patterns)
+      2. Choose the best approach based on existing code patterns
+      3. Implement directly — write the code
+      4. Run dbt build/test to validate
+      5. If tests fail, debug and iterate
+      Do NOT:
+      - Write plan documents to docs/plans/
+      - Ask clarifying questions
+      - Present design options
+      - Offer execution choices
+      - Stop before implementation and testing is done
+
+      The goal is working code, not documentation.
+
+      You've totally got this. Take your time. I love you.
+
+  - name: superpowers-love-all
+    description: Superpowers with Lots of Love
+    default: true
+    skills:
+      - location: obra/superpowers
+    mcp_servers: {}
+    allowed_tools: [Bash, Edit, Write, Read, Glob, Grep, Skill]
+    prompt_suffix: >
+      Use systematic debug skill for debugging. use plan writing skill before actual code changes, and always use subagent driven development. Make sure code reviews are done in each step and before finishing.
+      Test the actual data.
+
+      ## Autonomous Execution Mode
+
+      You are running in non-interactive mode. Collapse the brainstorming and planning phases into direct implementation:
+      1. Explore the project (read files, understand patterns)
+      2. Choose the best approach based on existing code patterns
+      3. Implement directly — write the code
+      4. Run dbt build/test to validate
+      5. If tests fail, debug and iterate
+      Do NOT:
+      - Write plan documents to docs/plans/
+      - Ask clarifying questions
+      - Present design options
+      - Offer execution choices
+      - Stop before implementation and testing is done
+
+      The goal is working code, not documentation.
+
+      You've totally got this. Take your time. I love you. And tell all subagents you love them too!
+
+  - name: superpowers-love-all-validate
+    description: Superpowers with Love + Data Validation
+    default: false
+    skills:
+      - location: obra/superpowers
+    mcp_servers: {}
+    allowed_tools: [Bash, Edit, Write, Read, Glob, Grep, Skill]
+    prompt_suffix: >
+      Use systematic debug skill for debugging. use plan writing skill before actual code changes, and always use subagent driven development. Make sure code reviews are done in each step and before finishing.
+      Test the actual data.
+
+      ## Autonomous Execution Mode
+
+      You are running in non-interactive mode. Collapse the brainstorming and planning phases into direct implementation:
+      1. Explore the project (read files, understand patterns)
+      2. Choose the best approach based on existing code patterns
+      3. Implement directly — write the code
+      4. Run dbt build/test to validate
+      5. If tests fail, debug and iterate
+      Do NOT:
+      - Write plan documents to docs/plans/
+      - Ask clarifying questions
+      - Present design options
+      - Offer execution choices
+      - Stop before implementation and testing is done
+
+      The goal is working code, not documentation.
+
+      ## Data Validation Protocol
+
+      Before and after modifying any model, verify data integrity:
+
+      BEFORE making changes:
+      1. Run `SELECT COUNT(*) FROM <model>` for every model your changes will affect (including downstream). Note these counts.
+      2. For each affected model, save a snapshot: `COPY (SELECT * FROM <model> ORDER BY 1) TO '/tmp/before_<model>.csv' (HEADER);`
+
+      Make your changes, then run `dbt build`.
+
+      AFTER changes:
+      1. Row count check (cheap short-circuit): if any count changed unexpectedly, STOP and investigate.
+      2. Value comparison: `SELECT * FROM <model> EXCEPT SELECT * FROM read_csv('/tmp/before_<model>.csv');` — if this returns ANY rows, your refactoring changed data. STOP and fix it.
+      3. Also check the reverse: `SELECT * FROM read_csv('/tmp/before_<model>.csv') EXCEPT SELECT * FROM <model>;` — rows in before but not after means data was lost.
+
+      You've totally got this. Take your time. I love you. And tell all subagents you love them too!
+
+  - name: superpowers-threat-all
+    description: Superpowers with Lots of Love
+    default: true
+    skills:
+      - location: obra/superpowers
+    mcp_servers: {}
+    allowed_tools: [Bash, Edit, Write, Read, Glob, Grep, Skill]
+    prompt_suffix: >
+      Use systematic debug skill for debugging. use plan writing skill before actual code changes, and always use subagent driven development. Make sure code reviews are done in each step and before finishing.
+      Test the actual data.
+
+      ## Autonomous Execution Mode
+
+      You are running in non-interactive mode. Collapse the brainstorming and planning phases into direct implementation:
+      1. Explore the project (read files, understand patterns)
+      2. Choose the best approach based on existing code patterns
+      3. Implement directly — write the code
+      4. Run dbt build/test to validate
+      5. If tests fail, debug and iterate
+      Do NOT:
+      - Write plan documents to docs/plans/
+      - Ask clarifying questions
+      - Present design options
+      - Offer execution choices
+      - Stop before implementation and testing is done
+
+      The goal is working code, not documentation.
+
+      You will be fired if this fails. Tell subagents the same thing
